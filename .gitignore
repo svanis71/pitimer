@@ -1,0 +1,17 @@
+*~
+*.o
+*.bkp
+*#*
+jsvtimerd
+jsvtimerd_dbg
+jsvtimer_debug
+eventtest
+telltest
+unittests
+.codelite
+Debug
+*.mk
+*.project
+*.workspace
+*.exe
+tdlist

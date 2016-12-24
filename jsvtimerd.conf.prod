@@ -1,0 +1,32 @@
+# Intervals
+sleep_interval=1
+heartbeat_interval=3600
+check_temprature_interval=1800
+# Url to web service
+wsStatusUrl=http://www.fam-svanstrom.se/api/status
+wsSunriseSunsetUrl=http://www.fam-svanstrom.se/api/SunriseSunset?plaintext=true
+# Coordinates to home
+latitude=56.21227
+longitude=15.542849
+# Logging
+logging.file=/opt/jsvtimer/log/jsvtimerd.log
+logging.level=1
+# Devices format device.{id-number}.{property}=hh:mm
+device.1.start=15:00
+device.1.stop=07:30
+device.1.useSun=true
+device.2.start=15:20
+device.2.stop=07:30
+device.2.useSun=true
+device.3.start=04:30
+device.3.stop=08:30
+device.3.useSun=false
+device.4.start=05:00
+device.4.stop=22:00
+device.4.useSun=false
+device.5.start=05:00
+device.5.stop=22:00
+device.5.useSun=false
+device.6.start=05:00
+device.6.stop=22:00
+device.6.useSun=true

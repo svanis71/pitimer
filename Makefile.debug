@@ -1,0 +1,22 @@
+CFLAGS=-c -Wall -std=c99 -pthread
+LDFLAGS=-ltelldus-core -lcurl -pthread
+CC=gcc
+
+TARGET=jsvtimerd_debug
+SOURCES=jsvtimerd_dbg.c jsvtellstick.c mystring.c configuration.c logging.c ws_client.c device_config_list.c
+HEADERS=jsvtellstick.h mytypes.h mystring.h configuration.h logging.h ws_client.h device_config_list.h
+OBJECTS=$(SOURCES:.c=.o)
+
+all: ${SOURCES} ${HEADERS} ${TARGET}
+
+${TARGET}: ${OBJECTS}
+	${CC} -o ${TARGET} ${OBJECTS} ${LDFLAGS}
+
+.c.o: 
+	${CC} ${CFLAGS} $< -o $@
+
+cleanobj: 
+	rm -f ${OBJECTS}
+
+clean:
+	rm -f ${TARGET} ${OBJECTS}
