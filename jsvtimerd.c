@@ -36,9 +36,13 @@ void exit_daemon()
 static void sig_handler(int sig)
 {
   switch(sig) {
-  case SIGHUP:
+  case SIGUSR1:
     g_application.g__reloadFlag = 1;
-    jsvlog_info("Recieved SIGHUP");
+    jsvlog_info("Recieved SIGUSR1");
+    break;
+  case SIGUSR2:
+    jsvlog_info("Recieved SIGUSR2");
+    printConfig(stdout);
     break;
   case SIGTERM:
     jsvlog_info("Recieved SIGTERM");

@@ -270,10 +270,12 @@ int readConfigFile(const char *conf_file) {
   fprintf(dest, "sleepInterval=%d\n", g_application.current_config.sleepInterval);
   fprintf(dest, "heartBeatInterval=%d\n", g_application.current_config.heartBeatInterval);
   fprintf(dest, "checkTempratureInterval=%d\n", g_application.current_config.checkTempratureInterval);
+  fprintf(dest, "latitude=%.4lf", g_application.current_config.homeCoordinate.latitude);
+  fprintf(dest, "longitude=%.4lf", g_application.current_config.homeCoordinate.longitude);
   fprintf(dest, "loggFile=%s\n", g_application.current_config.logg_config.loggFile);
   fprintf(dest, "logging level=%d\n", g_application.current_config.logg_config.level);
-  fprintf(dest, "wsUrl=%s\n", g_application.ws_client.url);
-  fprintf(dest, "wsSunUrl=%s\n",  g_application.ws_client.sunUrl);
+  fprintf(dest, "wsStatusUrl=%s\n", g_application.ws_client.url);
+  fprintf(dest, "wsSunriseSunsetUrl=%s\n",  g_application.ws_client.sunUrl);
   struct Device *list =  g_application.deviceList;
   for(; list != NULL; list = list->next) {
     TimerConfig itm = list->config;
