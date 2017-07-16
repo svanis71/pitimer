@@ -7,11 +7,15 @@
 static int running = 1;
 
 void WINAPI deviceEventHandler(int deviceId, int method, const char *data, int callbackId, void *context) {
-  printf("Hello %d:%d:%s:%d\n", deviceId, method, data, callbackId);
+  time_t tiden = time(NULL);
+  struct tm *tid = localtime(&tiden);
+  fprintf(stdout, "%02d:%02d -- %d:%d:%s:%d\n", tid->tm_hour, tid->tm_min, deviceId, method, data, callbackId);
+  fflush(stdout);
 }
 
 void WINAPI rawDeviceEventHandler(const char *data, int controllerId, int callbackId, void *context) {
-  printf("RAW Device: %s\n", data);
+  fprintf(stdout, "RAW Device: %s\n", data);
+  fflush(stdout);
 }
 
 void WINAPI sensorEventHandler(const char *protocol, const char *model, int id, int dataType, const char *value, int ts, int callbackId, void *context) {
@@ -20,22 +24,16 @@ void WINAPI sensorEventHandler(const char *protocol, const char *model, int id, 
 
   strftime(timeBuf, sizeof(timeBuf), "%Y-%m-%d %H:%M:%S", localtime(&timestamp));
   /*Print the sensor*/
-  printf("SENSOR at %s: %s,\t%s,\t%i\t%s\n", timeBuf, protocol, model, id, value);
-
-  /*Retrieve the values the sensor supports*/
-  if (dataType == TELLSTICK_TEMPERATURE) {
-    printf("Temperature:\t%sº\t(%s)\n", value, timeBuf);
-
-  } else if (dataType == TELLSTICK_HUMIDITY) {
-    printf("Humidity:\t%s%%\t(%s)\n", value, timeBuf);
-  }
+  fprintf(stdout, "SENSOR at %s: %s,\t%s,\t%i\t%s\n", timeBuf, protocol, model, id, value);
+  fflush(stdout);
 }
 
 
 static void sighandler(int sig) {
   switch(sig) {
   case SIGINT:
-    printf("Goodbye!\n");
+    fprintf(stdout, "Goodbye!\n");
+    fflush(stdout);
     running = 0;
     break;
   }
@@ -55,6 +53,7 @@ int main(int argc, char **argv) {
   callbackId[2] = tdRegisterSensorEvent( (TDSensorEvent)&sensorEventHandler, 0 );
 
   printf("Waiting...\n");
+  fflush(stdout);
   /*Our own simple eventloop*/
   while(running) {
     sleep(1);
