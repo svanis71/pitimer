@@ -9,13 +9,15 @@ static int running = 1;
 void WINAPI deviceEventHandler(int deviceId, int method, const char *data, int callbackId, void *context) {
   time_t tiden = time(NULL);
   struct tm *tid = localtime(&tiden);
-  fprintf(stdout, "%02d:%02d -- %d:%d:%s:%d\n", tid->tm_hour, tid->tm_min, deviceId, method, data, callbackId);
+  fprintf(stdout, "%04d-%02d-%02d %02d:%02d -- %d:%d:%s:%d\n",
+	  tid->tm_year + 1900, tid->tm_mon + 1, tid->tm_mday,
+	  tid->tm_hour + 2, tid->tm_min, deviceId, method, data, callbackId);
   fflush(stdout);
 }
 
 void WINAPI rawDeviceEventHandler(const char *data, int controllerId, int callbackId, void *context) {
-  fprintf(stdout, "RAW Device: %s\n", data);
-  fflush(stdout);
+  /*  fprintf(stdout, "RAW Device: %s\n", data);
+      fflush(stdout);*/
 }
 
 void WINAPI sensorEventHandler(const char *protocol, const char *model, int id, int dataType, const char *value, int ts, int callbackId, void *context) {
@@ -23,9 +25,9 @@ void WINAPI sensorEventHandler(const char *protocol, const char *model, int id, 
   time_t timestamp = ts;
 
   strftime(timeBuf, sizeof(timeBuf), "%Y-%m-%d %H:%M:%S", localtime(&timestamp));
-  /*Print the sensor*/
+  /*Print the sensor
   fprintf(stdout, "SENSOR at %s: %s,\t%s,\t%i\t%s\n", timeBuf, protocol, model, id, value);
-  fflush(stdout);
+  fflush(stdout);*/
 }
 
 
